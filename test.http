@@ -1,0 +1,11 @@
+@uri = Http://localhost:3000/
+###
+POST  {{uri}}product
+Content-Type: application/json
+
+{
+    "title":"产品5"
+}
+###
+GET {{uri}}product
+

@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 //引用mongoose连接mongodb
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost:27017/express-test', { useNewUrlParser: true })
@@ -28,6 +30,7 @@ app.get('/about', (req, res) => {
     res.send({ page: 'About Us' })
 })
 
+//product总体接口
 app.get('/product', async (req, res) => {//使用async await find函数查找数据库的数据
     // const data = await Product.find().limit(2) 限制两条
     // const data = await Product.find().skip(1).limit(2) 跳过1条 限制两条
@@ -41,9 +44,17 @@ app.get('/product', async (req, res) => {//使用async await find函数查找数
     res.send(data)
 })
 
+//详情接口
 app.get('/product/:id', async (req, res) => { //根据id查 url中把后面的捕获过来变成id
     const data = await Product.findById(req.params.id) //注意id在req.params中
     res.send(data)
+})
+
+//新增产品接口
+app.post('/product', async (req, res) => {//restfull风格写post接口 与get接口url一样
+    const data = req.body//req.body可以拿到post请求发送的东西
+    const product = await Product.create(data)//使用create函数将数据添加进数据库中，返回的就是这个数据
+    res.send(product)
 })
 
 app.listen(3000, () => {
