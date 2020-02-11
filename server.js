@@ -1,6 +1,7 @@
 const express = require('express')
-
 const app = express()
+//静态文件托管，必须加一个/static，才能访问得到
+app.use('/static', express.static('public'))
 app.get('/', (req, res) => {
     res.send({ page: 'home' })
 })
@@ -9,9 +10,9 @@ app.get('/about', (req, res) => {
 })
 app.get('/product', (req, res) => {
     res.send([
-        {id:1,title:'product 1'},
-        {id:2,title:'product 2'},
-        {id:3,title:'product 3'},
+        { id: 1, title: 'product 1' },
+        { id: 2, title: 'product 2' },
+        { id: 3, title: 'product 3' },
     ])
 })
 app.listen(3000, () => {
