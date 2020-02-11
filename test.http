@@ -8,4 +8,10 @@ Content-Type: application/json
 }
 ###
 GET {{uri}}product
+###
+PUT   {{uri}}product/5e425f1d4d1fae3d561c510f
+Content-Type: application/json
 
+{
+    "title":"产品5"
+}

@@ -57,6 +57,14 @@ app.post('/product', async (req, res) => {//restfull风格写post接口 与get�
     res.send(product)
 })
 
+//修改接口
+app.put('/product/:id', async (req, res) => {
+    const product = await Product.findById(req.params.id)//先拿到这条数据
+    product.title = req.body.title//用req.body中传的东西修改
+    await product.save()//用异步保存它
+    res.send(product)//将这条数据返回发送给客户端
+})
+
 app.listen(3000, () => {
     console.log('3000');
 })
