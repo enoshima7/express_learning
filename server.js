@@ -1,7 +1,12 @@
 const express = require('express')
 const app = express()
+
 //静态文件托管，必须加一个/static，才能访问得到
-app.use('/static', express.static('public'))
+app.use('/', express.static('public'))
+
+//npm引入cors并use 解决跨域问题
+app.use(require('cors')())
+
 app.get('/', (req, res) => {
     res.send({ page: 'home' })
 })
