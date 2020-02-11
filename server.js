@@ -1,6 +1,20 @@
 const express = require('express')
 const app = express()
 
+//引用mongoose连接mongodb
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost:27017/express-test', { useNewUrlParser: true })
+//创建model模型
+const Product = mongoose.model('Product', new mongoose.Schema({
+    title: String,
+}))
+//往模型插入数据
+// Product.insertMany([
+//     { title: '产品1' },
+//     { title: '产品2' },
+//     { title: '产品3' },
+// ])
+
 //静态文件托管，必须加一个/static，才能访问得到
 app.use('/', express.static('public'))
 
@@ -13,12 +27,9 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
     res.send({ page: 'About Us' })
 })
-app.get('/product', (req, res) => {
-    res.send([
-        { id: 1, title: 'product 1' },
-        { id: 2, title: 'product 2' },
-        { id: 3, title: 'product 3' },
-    ])
+
+app.get('/product', async (req, res) => {//使用async await find函数查找数据库的数据
+    res.send(await Product.find())
 })
 app.listen(3000, () => {
     console.log('3000');
