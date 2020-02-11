@@ -65,6 +65,14 @@ app.put('/product/:id', async (req, res) => {
     res.send(product)//将这条数据返回发送给客户端
 })
 
+//删除接口
+app.delete('/product/:id', async (req, res) => {
+    const product = await Product.findById(req.params.id)//拿到这条数据
+    await product.remove()//remove方法直接删除
+    res.send({
+        success: true//返回一个状态
+    })
+})
 app.listen(3000, () => {
     console.log('3000');
 })
