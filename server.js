@@ -29,8 +29,23 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/product', async (req, res) => {//使用async await find函数查找数据库的数据
-    res.send(await Product.find())
+    // const data = await Product.find().limit(2) 限制两条
+    // const data = await Product.find().skip(1).limit(2) 跳过1条 限制两条
+    // const data = await Product.find().where({ 根据条件查询
+    //     title: '产品2'
+    // })
+    // const data = await Product.find().sort({ 排序
+    //     _id: -1
+    // })
+    const data = await Product.find()
+    res.send(data)
 })
+
+app.get('/product/:id', async (req, res) => { //根据id查 url中把后面的捕获过来变成id
+    const data = await Product.findById(req.params.id) //注意id在req.params中
+    res.send(data)
+})
+
 app.listen(3000, () => {
     console.log('3000');
 })
